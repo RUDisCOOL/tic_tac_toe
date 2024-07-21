@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -51,7 +50,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          backgroundColor: Colors.white,
+          backgroundColor: const Color.fromARGB(255, 255, 255, 255),
           title: message,
           actions: [
             ElevatedButton(
@@ -111,13 +110,8 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
       appBar: AppBar(
         elevation: 15,
         shadowColor: Colors.black,
-        title: Text(
+        title: const Text(
           'TIC TAC TOE',
-          style: GoogleFonts.varelaRound(
-            fontSize: 25,
-            fontWeight: FontWeight.w900,
-            letterSpacing: 3,
-          ),
         ),
         centerTitle: true,
         backgroundColor: Colors.green,
@@ -160,7 +154,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                       const TextSpan(
                                         text: 'Player ',
                                         style: TextStyle(
-                                          fontSize: 16,
+                                          fontSize: 22,
                                           fontWeight: FontWeight.w500,
                                           color: Colors.black,
                                         ),
@@ -175,18 +169,17 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                       const TextSpan(
                                         text: ' has ',
                                         style: TextStyle(
-                                          fontSize: 16,
+                                          fontSize: 22,
                                           fontWeight: FontWeight.w500,
                                           color: Colors.black,
                                         ),
                                       ),
                                       const TextSpan(
-                                        text: 'WON!',
+                                        text: 'Won!',
                                         style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w500,
-                                          color:
-                                              Color.fromARGB(255, 0, 230, 118),
+                                          fontSize: 22,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.green,
                                         ),
                                       ),
                                     ],
@@ -201,16 +194,16 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                   text: const TextSpan(
                                     text: 'It\'s a ',
                                     style: TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 22,
                                       fontWeight: FontWeight.w500,
                                       color: Colors.black,
                                     ),
                                     children: [
                                       TextSpan(
-                                        text: 'DRAW!',
+                                        text: 'Draw!',
                                         style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w500,
+                                          fontSize: 22,
+                                          fontWeight: FontWeight.w600,
                                           color:
                                               Color.fromARGB(255, 255, 179, 0),
                                         ),
@@ -250,11 +243,11 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                       width: 60,
                     ),
                   ),
-                  TextSpan(
+                  const TextSpan(
                     text: '\'s turn',
-                    style: GoogleFonts.varelaRound(
+                    style: TextStyle(
                       fontSize: 50,
-                      fontWeight: FontWeight.w900,
+                      fontWeight: FontWeight.w700,
                       color: Colors.black,
                     ),
                   ),
