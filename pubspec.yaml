@@ -1,0 +1,29 @@
+name: tic_tac_toe
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: '>=3.4.3 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  google_fonts: ^6.2.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  assets:
+    - assets/images/O.png
+    - assets/images/X.png
+
+  uses-material-design: true
+
+fonts:
+  family: VarelaRound
+  fonts:
+    asset: fonts/VarelaRound-Regular.ttf
