@@ -1,3 +1,3 @@
 # tic_tac_toe
 
-A new Flutter project.
+A basic Tic-Tac-Toe game using Flutter.
