@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -8,11 +11,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
-  String _turn = 'O';
+  String _turn = 'X';
 
   int count = 0;
 
   List<String> values = ['', '', '', '', '', '', '', '', ''];
+
+  List<int> possibleMoves = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 
   List<List<int>> winnerIndexList = [
     [0, 1, 2],
@@ -40,7 +45,8 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   void _move(int index) {
     if (values[index] == '') {
       count++;
-      print(count);
+      HapticFeedback.lightImpact();
+      possibleMoves.remove(index);
       setState(() {
         values[index] = _turn;
         _turn = _turn == 'O' ? 'X' : 'O';
@@ -115,13 +121,27 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
           );
         }
       }
+      //BOT MOVE LOGIC HERE
+      if (count < 9 && count % 2 != 0) {
+        //Easy
+        int botIndex = possibleMoves[Random().nextInt(possibleMoves.length)];
+        //Medium
+
+        //Impossible
+
+        //Move based on difficulty
+        Future.delayed(const Duration(milliseconds: 500), () {
+          _move(botIndex);
+        });
+      }
     }
   }
 
   void _resetGame() {
     setState(() {
       values = ['', '', '', '', '', '', '', '', ''];
-      _turn = 'O';
+      possibleMoves = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+      _turn = 'X';
       count = 0;
     });
   }
