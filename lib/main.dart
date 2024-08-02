@@ -17,14 +17,7 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       home: const HomePage(),
       theme: ThemeData(
-        textTheme: GoogleFonts.robotoTextTheme(),
-        appBarTheme: const AppBarTheme(
-          titleTextStyle: TextStyle(
-            fontSize: 25,
-            fontWeight: FontWeight.w800,
-            letterSpacing: 2,
-          ),
-        ),
+        textTheme: GoogleFonts.bubblegumSansTextTheme(),
       ),
     );
   }

@@ -37,6 +37,87 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     return (false, null);
   }
 
+  void _move(int index) {
+    if (values[index] == '') {
+      count++;
+      print(count);
+      setState(() {
+        values[index] = _turn;
+        _turn = _turn == 'O' ? 'X' : 'O';
+      });
+      if (count > 4) {
+        var (bool win, String? winner) = checkWinner(index);
+        if (win) {
+          _resetGame();
+          _showCustomDialog(
+            RichText(
+              text: TextSpan(
+                children: [
+                  const TextSpan(
+                    text: 'Player ',
+                    style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black,
+                    ),
+                  ),
+                  WidgetSpan(
+                    child: Image.asset(
+                      'assets/images/$winner.png',
+                      height: 22,
+                      width: 22,
+                    ),
+                  ),
+                  const TextSpan(
+                    text: ' has ',
+                    style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black,
+                    ),
+                  ),
+                  const TextSpan(
+                    text: 'Won!',
+                    style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.green,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        }
+        if (!win && count == 9) {
+          _resetGame();
+          _showCustomDialog(
+            RichText(
+              text: const TextSpan(
+                text: 'It\'s a ',
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.black,
+                ),
+                children: [
+                  TextSpan(
+                    text: 'Draw!',
+                    style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.w600,
+                      color: Color.fromARGB(255, 255, 179, 0),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        }
+      }
+    }
+  }
+
   void _resetGame() {
     setState(() {
       values = ['', '', '', '', '', '', '', '', ''];
@@ -109,157 +190,59 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        elevation: 15,
-        shadowColor: Colors.black,
-        title: const Text(
-          'TIC TAC TOE',
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.green,
-        foregroundColor: Colors.white,
-      ),
-      body: Center(
-        child: Container(
-          width: deviceHeight - 200,
-          padding: const EdgeInsets.all(15),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                color: const Color.fromARGB(255, 74, 74, 74),
-                padding: const EdgeInsets.all(15),
-                child: GridView.count(
-                  padding: EdgeInsets.zero,
-                  shrinkWrap: true,
-                  crossAxisCount: 3,
-                  mainAxisSpacing: 10,
-                  crossAxisSpacing: 10,
-                  children: List.generate(
-                    9,
-                    (int index) {
-                      return GestureDetector(
-                        onTap: () {
-                          count++;
-                          if (values[index] == '') {
-                            setState(() {
-                              values[index] = _turn;
-                              _turn = _turn == 'O' ? 'X' : 'O';
-                            });
-                            if (count > 4) {
-                              var (bool win, String? winner) =
-                                  checkWinner(index);
-                              if (win) {
-                                _resetGame();
-                                _showCustomDialog(
-                                  RichText(
-                                    text: TextSpan(
-                                      children: [
-                                        const TextSpan(
-                                          text: 'Player ',
-                                          style: TextStyle(
-                                            fontSize: 22,
-                                            fontWeight: FontWeight.w500,
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                        WidgetSpan(
-                                          child: Image.asset(
-                                            'assets/images/$winner.png',
-                                            height: 22,
-                                            width: 22,
-                                          ),
-                                        ),
-                                        const TextSpan(
-                                          text: ' has ',
-                                          style: TextStyle(
-                                            fontSize: 22,
-                                            fontWeight: FontWeight.w500,
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                        const TextSpan(
-                                          text: 'Won!',
-                                          style: TextStyle(
-                                            fontSize: 22,
-                                            fontWeight: FontWeight.w600,
-                                            color: Colors.green,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                );
-                              }
-                              if (!win && count == 9) {
-                                _resetGame();
-                                _showCustomDialog(
-                                  RichText(
-                                    text: const TextSpan(
-                                      text: 'It\'s a ',
-                                      style: TextStyle(
-                                        fontSize: 22,
-                                        fontWeight: FontWeight.w500,
-                                        color: Colors.black,
-                                      ),
-                                      children: [
-                                        TextSpan(
-                                          text: 'Draw!',
-                                          style: TextStyle(
-                                            fontSize: 22,
-                                            fontWeight: FontWeight.w600,
-                                            color: Color.fromARGB(
-                                                255, 255, 179, 0),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                );
-                              }
-                            }
-                          }
+      body: SafeArea(
+        child: Center(
+          child: Container(
+            width: deviceHeight - 200,
+            padding: const EdgeInsets.all(15),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(7),
+                    color: const Color.fromARGB(255, 74, 74, 74),
+                  ),
+                  padding: const EdgeInsets.all(15),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    clipBehavior: Clip.antiAlias,
+                    child: GridView.count(
+                      padding: EdgeInsets.zero,
+                      shrinkWrap: true,
+                      crossAxisCount: 3,
+                      mainAxisSpacing: 10,
+                      crossAxisSpacing: 10,
+                      children: List.generate(
+                        9,
+                        (int index) {
+                          return GestureDetector(
+                            onTap: () {
+                              _move(index);
+                            },
+                            child: Container(
+                              color: Colors.white,
+                              child: Center(
+                                child: values[index] == ''
+                                    ? const SizedBox()
+                                    : Image.asset(
+                                        'assets/images/${values[index]}.png'),
+                              ),
+                            ),
+                          );
                         },
-                        child: Container(
-                          color: Colors.white,
-                          child: Center(
-                            child: values[index] == ''
-                                ? const SizedBox()
-                                : Image.asset(
-                                    'assets/images/${values[index]}.png'),
-                          ),
-                        ),
-                      );
-                    },
+                      ),
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              RichText(
-                text: TextSpan(
-                  children: [
-                    WidgetSpan(
-                      child: Image.asset(
-                        'assets/images/$_turn.png',
-                        height: 60,
-                        width: 60,
-                      ),
-                    ),
-                    const TextSpan(
-                      text: '\'s turn',
-                      style: TextStyle(
-                        fontSize: 50,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ],
+                const SizedBox(
+                  height: 30,
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
